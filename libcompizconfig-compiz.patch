@@ -1,0 +1,27 @@
+--- libcompizconfig-0.5.2/plugin/ccp.c.orig	2007-08-12 21:59:57.000000000 +0200
++++ libcompizconfig-0.5.2/plugin/ccp.c	2007-08-25 21:40:28.975646912 +0200
+@@ -132,12 +132,6 @@
+ 
+ 	    v->action.bell = sv->value.asAction.onBell;
+ 	    v->action.edgeMask = sv->value.asAction.edgeMask;
+-	    v->action.edgeButton = sv->value.asAction.edgeButton;
+-
+-	    if (v->action.edgeButton)
+-		v->action.type |= CompBindingTypeEdgeButton;
+-	    else
+-		v->action.type &= ~CompBindingTypeEdgeButton;
+ 	}
+ 	break;
+     default:
+@@ -274,11 +268,6 @@
+ 
+ 	value->value.asAction.onBell = from->action.bell;
+ 	value->value.asAction.edgeMask = from->action.edgeMask;
+-
+-	if (from->action.type & CompBindingTypeEdgeButton)
+-	    value->value.asAction.edgeButton = from->action.edgeButton;
+-	else
+-	    value->value.asAction.edgeButton = 0;
+ 	break;
+     default:
+ 	break;
