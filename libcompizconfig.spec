@@ -3,14 +3,16 @@ Summary(pl.UTF-8):	Alternatywny system konfiguracji dla compiza
 Name:		libcompizconfig
 Version:	0.5.2
 Release:	1
-License:	GPL
+License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	75b523f00b92986b4b6df0544112b141
+Patch0:		%{name}-compiz.patch
 URL:		http://forum.compiz-fusion.org/
-BuildRequires:	compiz-devel
-BuildRequires:	libxml2-devel
+BuildRequires:	compiz-devel >= %{version}
+BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
+Requires:	compiz-libs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +38,7 @@ Libcompizconfig jest alternatywnym systemem konfiguracyjnym dla
 compiza. Posiada następujące cechy:
 
 - automatyczne tworzenie listy wtyczek,
-- import/export aktualnej konfiguracji,
+- import/eksport aktualnej konfiguracji,
 - profile konfiguracyjne,
 - przetwarzanie plików metadanych Compiza w celu zapewnienia łatwego
   do użycia API dla menedżerów konfiguracji,
@@ -44,39 +46,41 @@ compiza. Posiada następujące cechy:
 - wspieranie różnych backendów przechowywania konfiguracji,
 - integracja ze środowiskiem graficznym; jeżeli backend wspiera
   integrację ze środowiskiem, to Compiz będzie współdzielił skróty
-  klawiszowe i ustawienia z domyślnym menedżerem okien środowiska,
-  takim jak metacity, czy kwin,
+  klawiszowe i ustawienia z domyślnym zarządcą okien środowiska, takim
+  jak metacity, czy kwin,
 - własna wtyczka konfiguracyjna "ccp", udostępniająca wszystkie opcje
   libcompizconfiga w compizie.
 
 %package devel
-Summary:	Header files for %{name}
-Summary(pl.UTF-8):	Pliki nagłówkowe %{name}
+Summary:	Header files for libcompizconfig library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libcompizconfig
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
+Requires:	libxml2-devel >= 2.0
 
 %description devel
 The header files are only needed for development of programs using the
-%{name} library.
+libcompizconfig library.
 
 %description devel -l pl.UTF-8
 W pakiecie tym znajdują się pliki nagłówkowe, przeznaczone dla
-programistów używających bibliotek %{name}.
+programistów używających biblioteki libcompizconfig.
 
 %package static
-Summary:	Static %{name} libraries
-Summary(pl.UTF-8):	Biblioteki statyczne %{name}
+Summary:	Static libcompizconfig libraries
+Summary(pl.UTF-8):	Biblioteki statyczne libcompizconfig
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-Static %{name} libraries.
+Static libcompizconfig library.
 
 %description static -l pl.UTF-8
-Biblioteki statyczne %{name}.
+Biblioteka statyczna libcompizconfig.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure
@@ -85,8 +89,12 @@ Biblioteki statyczne %{name}.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/compiz/*.{la,a}
+rm -f $RPM_BUILD_ROOT%{_libdir}/compizconfig/backends/*.{la,a}
+	
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -96,20 +104,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc TODO
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/lib*.so.0
-%attr(755,root,root) %{_libdir}/compiz/*.so
+%attr(755,root,root) %{_libdir}/libcompizconfig.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcompizconfig.so.0
+%attr(755,root,root) %{_libdir}/compiz/libccp.so
 %dir %{_libdir}/compizconfig
 %dir %{_libdir}/compizconfig/backends
-%attr(755,root,root) %{_libdir}/compizconfig/backends/*.so
+%attr(755,root,root) %{_libdir}/compizconfig/backends/libini.so
 %{_datadir}/compizconfig
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_pkgconfigdir}/*.pc
+%attr(755,root,root) %{_libdir}/libcompizconfig.so
+%{_libdir}/libcompizconfig.la
+%{_pkgconfigdir}/libcompizconfig.pc
 %{_includedir}/compizconfig
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libcompizconfig.a
