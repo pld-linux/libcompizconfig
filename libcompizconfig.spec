@@ -54,6 +54,7 @@ compiza. Posiada następujące cechy:
 %package devel
 Summary:	Header files for libcompizconfig library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libcompizconfig
+License:	LGPL v2.1+
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2-devel >= 2.0
@@ -69,6 +70,7 @@ programistów używających biblioteki libcompizconfig.
 %package static
 Summary:	Static libcompizconfig libraries
 Summary(pl.UTF-8):	Biblioteki statyczne libcompizconfig
+License:	LGPL v2.1+
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
