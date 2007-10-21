@@ -2,7 +2,7 @@ Summary:	Alternative configuration system for compiz
 Summary(pl.UTF-8):	Alternatywny system konfiguracji dla compiza
 Name:		libcompizconfig
 Version:	0.6.0
-Release:	1
+Release:	2
 License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/%{version}/%{name}-%{version}.tar.bz2
@@ -96,7 +96,6 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/compiz/*.{la,a}
 rm -f $RPM_BUILD_ROOT%{_libdir}/compizconfig/backends/*.{la,a}
-mv $RPM_BUILD_ROOT%{_includedir}/compizconfig/*.h $RPM_BUILD_ROOT%{_includedir}
 	
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -122,7 +121,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libcompizconfig.so
 %{_libdir}/libcompizconfig.la
 %{_pkgconfigdir}/libcompizconfig.pc
-%{_includedir}/*.h
+%dir %{_includedir}/compizconfig
+%{_includedir}/compizconfig/*.h
 
 %files static
 %defattr(644,root,root,755)
