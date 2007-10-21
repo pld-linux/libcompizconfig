@@ -1,12 +1,12 @@
 Summary:	Alternative configuration system for compiz
 Summary(pl.UTF-8):	Alternatywny system konfiguracji dla compiza
 Name:		libcompizconfig
-Version:	0.5.2
-Release:	2
+Version:	0.6.0
+Release:	1
 License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	75b523f00b92986b4b6df0544112b141
+# Source0-md5:	2aac5c3cc5aa9763f4ffac40ee1abaa5
 Patch0:		%{name}-compiz.patch
 URL:		http://forum.compiz-fusion.org/
 BuildRequires:	compiz-devel >= %{version}
@@ -96,6 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/compiz/*.{la,a}
 rm -f $RPM_BUILD_ROOT%{_libdir}/compizconfig/backends/*.{la,a}
+mv $RPM_BUILD_ROOT%{_includedir}/compizconfig/*.h $RPM_BUILD_ROOT%{_includedir}
 	
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,13 +114,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/compizconfig/backends
 %attr(755,root,root) %{_libdir}/compizconfig/backends/libini.so
 %{_datadir}/compizconfig
+%dir /etc/compizconfig
+/etc/compizconfig/config
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libcompizconfig.so
 %{_libdir}/libcompizconfig.la
 %{_pkgconfigdir}/libcompizconfig.pc
-%{_includedir}/compizconfig
+%{_includedir}/*.h
 
 %files static
 %defattr(644,root,root,755)
