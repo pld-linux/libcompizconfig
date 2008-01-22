@@ -7,7 +7,6 @@ License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	2aac5c3cc5aa9763f4ffac40ee1abaa5
-Patch0:		%{name}-compiz.patch
 URL:		http://forum.compiz-fusion.org/
 BuildRequires:	compiz-devel >= %{version}
 BuildRequires:	libxml2-devel >= 2.0
@@ -83,7 +82,6 @@ Biblioteka statyczna libcompizconfig.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure
