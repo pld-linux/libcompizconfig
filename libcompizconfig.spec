@@ -1,12 +1,12 @@
 Summary:	Alternative configuration system for compiz
 Summary(pl.UTF-8):	Alternatywny system konfiguracji dla compiza
 Name:		libcompizconfig
-Version:	0.6.0
-Release:	3
+Version:	0.7.2
+Release:	1
 License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	2aac5c3cc5aa9763f4ffac40ee1abaa5
+# Source0-md5:	e382544fb453e62caf84f4c166aab6e1
 URL:		http://forum.compiz-fusion.org/
 BuildRequires:	compiz-devel >= %{version}
 BuildRequires:	libxml2-devel >= 2.0
@@ -114,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/compizconfig
 %dir %{_sysconfdir}/compizconfig
 %{_sysconfdir}/compizconfig/config
+%{_datadir}/compiz/ccp.xml
 
 %files devel
 %defattr(644,root,root,755)
