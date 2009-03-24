@@ -8,9 +8,16 @@ Group:		Libraries
 Source0:	http://releases.compiz-fusion.org/incoming/%{name}-%{version}.tar.bz2
 # Source0-md5:	551ab49ab7f542f4a969e54bcfb7a485
 URL:		http://forum.compiz-fusion.org/
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1:1.9
 BuildRequires:	compiz-devel >= %{version}
+BuildRequires:	gettext-devel
+BuildRequires:	intltool >= 0.35.0
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
+BuildRequires:	protobuf
+BuildRequires:	protobuf-devel
 Requires:	compiz-libs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -84,6 +91,12 @@ Biblioteka statyczna libcompizconfig.
 %setup -q
 
 %build
+%{__intltoolize}
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure
 %{__make}
 
@@ -111,7 +124,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/compizconfig
 %dir %{_libdir}/compizconfig/backends
 %attr(755,root,root) %{_libdir}/compizconfig/backends/libini.so
-#%{_datadir}/compizconfig
 %dir %{_sysconfdir}/compizconfig
 %{_sysconfdir}/compizconfig/config
 %{_datadir}/compiz/ccp.xml
@@ -120,9 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libcompizconfig.so
 %{_libdir}/libcompizconfig.la
+%{_includedir}/compizconfig
 %{_pkgconfigdir}/libcompizconfig.pc
-%dir %{_includedir}/compizconfig
-%{_includedir}/compizconfig/*.h
 
 %files static
 %defattr(644,root,root,755)
