@@ -18,6 +18,7 @@ BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 BuildRequires:	protobuf
 BuildRequires:	protobuf-devel
+BuildRequires:	xorg-lib-libX11-devel
 Requires:	compiz-libs >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,6 +66,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	compiz-devel >= %{version}
 Requires:	libxml2-devel >= 2.0
+Requires:	protobuf-devel
+Requires:	xorg-lib-libX11-devel
 
 %description devel
 The header files are only needed for development of programs using the
