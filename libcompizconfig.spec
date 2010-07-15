@@ -1,12 +1,12 @@
 Summary:	Alternative configuration system for compiz
 Summary(pl.UTF-8):	Alternatywny system konfiguracji dla compiza
 Name:		libcompizconfig
-Version:	0.8.4
-Release:	2
+Version:	0.9.0
+Release:	1
 License:	LGPL v2.1+ (library, plugin), GPL v2+ (ini backend)
 Group:		Libraries
 Source0:	http://releases.compiz.org/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	723e076722370c35c47c2ab2ae445422
+# Source0-md5:	10e221d409d2114b7ce35100cc31d9c2
 URL:		http://www.compiz.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.9
